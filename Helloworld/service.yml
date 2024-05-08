@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  app: hello-world-ms-python
+spec:
+  selector:
+    app: hello-world-ms-python
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
