@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: tvplatform-admin-gateway
-        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-gateway:26 # will be updated by jenkins PRs
+        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-gateway:6 # will be updated by jenkins PRs
         imagePullPolicy: Always
         env:
         - name: ACCESS_TOKEN_EXPIRE_MINUTES
