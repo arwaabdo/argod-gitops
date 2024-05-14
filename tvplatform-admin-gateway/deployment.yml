@@ -1,78 +1,52 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tvplatform-admin-authentication
+  name: tvplatform-admin-gateway
   namespace: default
   labels:
-    app: tvplatform-admin-authentication
+    app: tvplatform-admin-gateway
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tvplatform-admin-authentication
+      app: tvplatform-admin-gateway
   template:
     metadata:
       labels:
-        app: tvplatform-admin-authentication
+        app: tvplatform-admin-gateway
     spec:
       containers:
-      - name: tvplatform-admin-authentication
-        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-authentication:26 # will be updated by jenkins PRs
+      - name: tvplatform-admin-gateway
+        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-gateway:26 # will be updated by jenkins PRs
         imagePullPolicy: Always
         env:
-        # - name: ALGORITHM
-          # value: postgres
+        - name: ACCESS_TOKEN_EXPIRE_MINUTES
+          value: 30
         - name: ALGORITHM
           valueFrom:
             secretKeyRef:
-              name: tvplatform-admin-authentication
+              name: tvplatform-admin-gateway
               key: ALGORITHM
-        - name: JWT_SECRET_KEY
-          valueFrom:
-            secretKeyRef:
-              name: tvplatform-admin-authentication
-              key: JWT_SECRET_KEY
-        - name: JWT_REFRESH_SECRET_KEY
-          valueFrom:
-            secretKeyRef:
-              name: tvplatform-admin-authentication
-              key: JWT_REFRESH_SECRET_KEY
-        - name: ORIGINS
-          valueFrom:
-            secretKeyRef:
-              name: tvplatform-admin-authentication
-              key: ORIGINS
-        - name: DEBUG
-          valueFrom:
-            secretKeyRef:
-              name: tvplatform-admin-authentication
-              key: DEBUG
-        - name: DB_NAME
-          valueFrom:
-            secretKeyRef:
-              name: tvplatform-admin-authentication
-              key: DB_NAME
-        - name: DB_USER
+        - name: AUTH_MICROSERVICE_URL
           valueFrom:
             secretKeyRef:
               name: tvplatform-admin-gateway
-              key: DB_USER
-        - name: DB_PASSWORD
+              key: AUTH_MICROSERVICE_URL
+        - name: CONSENT_USERVICE_URL
           valueFrom:
             secretKeyRef:
               name: tvplatform-admin-gateway
-              key: DB_PASSWORD
-        - name: DB_HOST
+              key: CONSENT_USERVICE_URL
+        - name: IDENTITY_USERVICE_URL
           valueFrom:
             secretKeyRef:
-              name: tvplatform-admin-authentication
-              key: DB_HOST
-        - name: DB_PORT
+              name: tvplatform-admin-gateway
+              key: IDENTITY_USERVICE_URL
+        - name: SECRET_KEY
           valueFrom:
             secretKeyRef:
-              name: tvplatform-admin-authentication
-              key: DB_PORT
-
+              name: tvplatform-admin-gateway
+              key: SECRET_KEY
         command: ["/bin/bash", "-c", "--" ]
         args: ["tail -f /dev/null;"]
       imagePullSecrets:
