@@ -9,6 +9,6 @@ spec:
     app: tvplatform-admin-authentication
   ports:
   - name: http
-    port: 80
-    targetPort: 8080
+    port: 80 # svc port
+    targetPort: 80 # app port
     nodePort: 30000   # Port accessible externally on each node
