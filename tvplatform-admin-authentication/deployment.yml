@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tvplatform-admin-authentication
+  namespace: default
+  labels:
+    app: tvplatform-admin-authentication
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tvplatform-admin-authentication
+  template:
+    metadata:
+      labels:
+        app: tvplatform-admin-authentication
+    spec:
+      containers:
+      - name: tvplatform-admin-authentication
+        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-authentication:19 # will be updated by jenkins PRs
+        imagePullPolicy: Always
+        env:
+        # - name: ALGORITHM
+          # value: postgres
+        - name: ALGORITHM
+          valueFrom:
+            secretKeyRef:
+              name: tvplatform-admin-authentication
+              key: ALGORITHM
+        - name: JWT_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: tvplatform-admin-authentication
+              key: JWT_SECRET_KEY
+        - name: JWT_REFRESH_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: tvplatform-admin-authentication
+              key: JWT_REFRESH_SECRET_KEY
+        - name: ORIGINS
+          valueFrom:
+            secretKeyRef:
+              name: tvplatform-admin-authentication
+              key: ORIGINS
+        - name: DEBUG
+          valueFrom:
+            secretKeyRef:
+              name: tvplatform-admin-authentication
+              key: DEBUG
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: tvplatform-admin-authentication
+              key: DB_NAME
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: tvplatform-admin-authentication
+              key: DB_USER
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: tvplatform-admin-authentication
+              key: DB_PASSWORD
+        - name: DB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: tvplatform-admin-authentication
+              key: DB_HOST
+        - name: DB_PORT
+          valueFrom:
+            secretKeyRef:
+              name: tvplatform-admin-authentication
+              key: DB_PORT
+
+        command: ["/bin/bash", "-c", "--" ]
+        args: ["tail -f /dev/null;"]
+      imagePullSecrets:
+      - name: obs-tvplatform-backend
