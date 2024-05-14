@@ -21,7 +21,7 @@ spec:
         imagePullPolicy: Always
         env:
         - name: ACCESS_TOKEN_EXPIRE_MINUTES
-          value: 30
+          value: "30"
         - name: ALGORITHM
           valueFrom:
             secretKeyRef:
