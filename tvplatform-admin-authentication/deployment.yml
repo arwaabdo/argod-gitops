@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: tvplatform-admin-authentication
-        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-authentication:163 # will be updated by jenkins PRs
+        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-authentication:169 # will be updated by jenkins PRs
         imagePullPolicy: Always
         command: ["/bin/bash", "-c", "--" ]
         args: ["tail -f /dev/null;"]
