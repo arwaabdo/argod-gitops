@@ -19,7 +19,6 @@ spec:
       - name: tvplatform-admin-authentication
         image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-authentication:172 # will be updated by jenkins PRs
         imagePullPolicy: Always
-        command: ["/bin/bash", "-c", "--" ]
-        args: ["tail -f /dev/null;"]
+        
       imagePullSecrets:
       - name: obs-tvplatform-backend
