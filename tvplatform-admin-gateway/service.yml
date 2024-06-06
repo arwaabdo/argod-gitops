@@ -10,6 +10,6 @@ spec:
     app: tvplatform-admin-gateway
   ports:
   - name: http
-    port: 80 # svc port
+    port: 8000 # svc port
     targetPort: 8000 # app port
     nodePort: 30001  # Port accessible externally on each node
