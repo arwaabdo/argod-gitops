@@ -17,37 +17,7 @@ spec:
     spec:
       containers:
       - name: tvplatform-admin-gateway
-        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-gateway:21 # will be updated by jenkins PRs
+        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-gateway:26 # will be updated by jenkins PRs
         imagePullPolicy: Always
-        env:
-        - name: ACCESS_TOKEN_EXPIRE_MINUTES
-          value: "30"
-        - name: ALGORITHM
-          valueFrom:
-            secretKeyRef:
-              name: tvplatform-admin-gateway
-              key: ALGORITHM
-        - name: AUTH_MICROSERVICE_URL
-          valueFrom:
-            secretKeyRef:
-              name: tvplatform-admin-gateway
-              key: AUTH_MICROSERVICE_URL
-        - name: CONSENT_USERVICE_URL
-          valueFrom:
-            secretKeyRef:
-              name: tvplatform-admin-gateway
-              key: CONSENT_USERVICE_URL
-        - name: IDENTITY_USERVICE_URL
-          valueFrom:
-            secretKeyRef:
-              name: tvplatform-admin-gateway
-              key: IDENTITY_USERVICE_URL
-        - name: SECRET_KEY
-          valueFrom:
-            secretKeyRef:
-              name: tvplatform-admin-gateway
-              key: SECRET_KEY
-        command: ["/bin/bash", "-c", "--" ]
-        args: ["tail -f /dev/null;"]
       imagePullSecrets:
       - name: obs-tvplatform-backend
