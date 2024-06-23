@@ -1,0 +1,11 @@
+config:
+  secret:
+    argocdServerAdminPassword: admin123
+
+server:
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    pathType: Prefix
+  service:
+    type: NodePort

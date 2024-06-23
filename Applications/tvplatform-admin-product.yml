@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: tvplatform-admin-product
-  namespace: argocd
+
 spec:
   destination:
     namespace: default

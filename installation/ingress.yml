@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: tvplatform-admin-argocd
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    ingress.kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+spec:
+  tls:
+     - hosts:
+       - argo.ooro.co.uk
+       secretName: letsencrypt-prod
+  ingressClassName: nginx
+  rules:
+    - host: argo.ooro.co.uk
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: argo-cd-argocd-server
+              port:
+                number: 80
