@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: tvplatform-admin-frontend
-        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-frontend:41 # will be updated by jenkins PRs
+        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-frontend:42 # will be updated by jenkins PRs
         imagePullPolicy: Always
       imagePullSecrets:
       - name: obs-tvplatform-backend
