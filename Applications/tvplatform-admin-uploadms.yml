@@ -1,8 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: tvplatform-user-identity
-  namespace: users
+  name: tvplatform-admin-uploadms
 
 spec:
   destination:
@@ -10,7 +9,7 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: ./tvplatform-user-identity
+    path: ./tvplatform-admin-uploadms
     repoURL: https://github.com/arwaabdo/argod-gitops.git
   syncPolicy:
     automated: {}
