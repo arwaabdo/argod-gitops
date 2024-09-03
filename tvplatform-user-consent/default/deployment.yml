@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tvplatform-user-consent
-  namespace: users
+  namespace: default
   labels:
     app: tvplatform-user-consent
 spec:
