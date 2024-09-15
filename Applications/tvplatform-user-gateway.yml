@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: tvplatform-user-gateway
-  namespace: users
+
 spec:
   destination:
     namespace: default

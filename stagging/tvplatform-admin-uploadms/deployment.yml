@@ -21,3 +21,18 @@ spec:
         imagePullPolicy: Always
       imagePullSecrets:
       - name: obs-tvplatform-backend
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: env
+                operator: In
+                values:
+                - stagging
+      tolerations:
+      - key: "env"
+        operator: "Equal"
+        value: "stagging"
+        effect: "PreferNoSchedule"
