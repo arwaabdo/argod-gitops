@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tvplatform-admin-uploadms
+  namespace: default
+  labels:
+    app: tvplatform-admin-uploadms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tvplatform-admin-uploadms
+  template:
+    metadata:
+      labels:
+        app: tvplatform-admin-uploadms
+    spec:
+      containers:
+      - name: tvplatform-admin-uploadms
+        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-uploadms:19 # will be updated by jenkins PRs
+        imagePullPolicy: Always
+      imagePullSecrets:
+      - name: obs-tvplatform-backend
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: env
+                operator: In
+                values:
+                - production
+      tolerations:
+      - key: "env"
+        operator: "Equal"
+        value: "production"
+        effect: "PreferNoSchedule"
