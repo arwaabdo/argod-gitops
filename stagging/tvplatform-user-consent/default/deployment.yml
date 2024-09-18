@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tvplatform-user-consent
+  namespace: default
+  labels:
+    app: tvplatform-user-consent
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tvplatform-user-consent
+  template:
+    metadata:
+      labels:
+        app: tvplatform-user-consent
+    spec:
+      containers:
+      - name: tvplatform-user-consent
+        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-user-consent:10 # will be updated by jenkins PRs
+        imagePullPolicy: Always
+      imagePullSecrets:
+      - name: obs-tvplatform-backend
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: env
+                operator: In
+                values:
+                - stagging
+      tolerations:
+      - key: "env"
+        operator: "Equal"
+        value: "stagging"
+        effect: "PreferNoSchedule"

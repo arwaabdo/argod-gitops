@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tvplatform-admin-authentication
+  namespace: default
+  labels:
+    app: tvplatform-admin-authentication
+    env: stagging
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tvplatform-admin-authentication
+      env: stagging
+  template:
+    metadata:
+      labels:
+        app: tvplatform-admin-authentication
+        env: stagging
+    spec:
+      containers:
+      - name: tvplatform-admin-authentication
+        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-authentication:15 # will be updated by jenkins PRs
+        imagePullPolicy: Always
+      imagePullSecrets:
+      - name: obs-tvplatform-backend
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: env
+                operator: In
+                values:
+                - stagging
+      tolerations:
+      - key: "env"
+        operator: "Equal"
+        value: "stagging"
+        effect: "PreferNoSchedule"
