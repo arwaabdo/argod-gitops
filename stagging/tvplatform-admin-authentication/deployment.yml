@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: tvplatform-admin-authentication
-        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-authentication:52 # will be updated by jenkins PRs
+        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-authentication:15 # will be updated by jenkins PRs
         imagePullPolicy: Always
       imagePullSecrets:
       - name: obs-tvplatform-backend
