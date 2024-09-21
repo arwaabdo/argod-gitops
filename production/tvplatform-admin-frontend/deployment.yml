@@ -23,7 +23,7 @@ spec:
       - name: obs-tvplatform-backend
       affinity:
         nodeAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
+          requiredDuringSchedulingIgnoredDuringExecution:
           - weight: 1
             preference:
               matchExpressions:
@@ -35,4 +35,4 @@ spec:
       - key: "env"
         operator: "Equal"
         value: "production"
-        effect: "PreferNoSchedule"
+        effect: "NoSchedule"
