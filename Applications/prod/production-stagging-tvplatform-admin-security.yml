@@ -1,15 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: tvplatform-admin-frontend
-
+  name: production-tvplatform-admin-security
 spec:
   destination:
     namespace: default
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: ./tvplatform-admin-frontend
+    path: ./production/tvplatform-admin-security
     repoURL: https://github.com/arwaabdo/argod-gitops.git
   syncPolicy:
     automated: {}

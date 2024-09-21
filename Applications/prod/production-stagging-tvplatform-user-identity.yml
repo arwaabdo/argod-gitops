@@ -1,14 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: tvplatform-admin-security
+  name: production-tvplatform-user-identity
 spec:
   destination:
     namespace: default
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: ./tvplatform-admin-security
+    path: ./production/tvplatform-user-identity
     repoURL: https://github.com/arwaabdo/argod-gitops.git
   syncPolicy:
     automated: {}
