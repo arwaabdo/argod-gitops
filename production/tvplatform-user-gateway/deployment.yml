@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tvplatform-user-gateway
+  name: tvplatform-user-gateway-prod
   namespace: users
   labels:
-    app: tvplatform-user-gateway
+    app: tvplatform-user-gateway-prod
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tvplatform-user-gateway
+      app: tvplatform-user-gateway-prod
   template:
     metadata:
       labels:
-        app: tvplatform-user-gateway
+        app: tvplatform-user-gateway-prod
     spec:
       containers:
-      - name: tvplatform-user-gateway
+      - name: tvplatform-user-gateway-prod
         image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-user-gateway:9 # will be updated by jenkins PRs
         imagePullPolicy: Always
       imagePullSecrets:

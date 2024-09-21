@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tvplatform-user-consent
+  name: tvplatform-user-consent-prod
   namespace: default
   labels:
-    app: tvplatform-user-consent
+    app: tvplatform-user-consent-prod
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tvplatform-user-consent
+      app: tvplatform-user-consent-prod
   template:
     metadata:
       labels:
-        app: tvplatform-user-consent
+        app: tvplatform-user-consent-prod
     spec:
       containers:
-      - name: tvplatform-user-consent
+      - name: tvplatform-user-consent-prod
         image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-user-consent:10 # will be updated by jenkins PRs
         imagePullPolicy: Always
       imagePullSecrets:

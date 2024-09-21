@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tvplatform-dev-device
+  name: tvplatform-dev-device-prod
   namespace: default
   labels:
-    app: tvplatform-dev-device
+    app: tvplatform-dev-device-prod
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tvplatform-dev-device
+      app: tvplatform-dev-device-prod
   template:
     metadata:
       labels:
-        app: tvplatform-dev-device
+        app: tvplatform-dev-device-prod
     spec:
       containers:
-      - name: tvplatform-dev-device
+      - name: tvplatform-dev-device-prod
         image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-dev-device:8 # will be updated by jenkins PRs
         imagePullPolicy: Always
       imagePullSecrets:

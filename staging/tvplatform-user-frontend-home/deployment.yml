@@ -24,15 +24,15 @@ spec:
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 1
+          
             preference:
               matchExpressions:
               - key: env
                 operator: In
                 values:
-                - stagging
+                - staging
       tolerations:
       - key: "env"
         operator: "Equal"
-        value: "stagging"
+        value: "staging"
         effect: "PreferNoSchedule"
