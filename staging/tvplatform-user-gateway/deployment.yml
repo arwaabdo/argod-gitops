@@ -1,29 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tvplatform-user-gateway
+  name: tvplatform-user-gateway-staging
   namespace: users
   labels:
-    app: tvplatform-user-gateway
+    app: tvplatform-user-gateway-staging
+    env: staging
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tvplatform-user-gateway
+      app: tvplatform-user-gateway-staging
+      env: staging
   template:
     metadata:
       labels:
-        app: tvplatform-user-gateway
+        app: tvplatform-user-gateway-staging
+        env: staging
     spec:
       containers:
-      - name: tvplatform-user-gateway
+      - name: tvplatform-user-gateway-staging
         image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-user-gateway:9 # will be updated by jenkins PRs
         imagePullPolicy: Always
       imagePullSecrets:
       - name: obs-tvplatform-backend
       affinity:
         nodeAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:  
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
             preference:
               matchExpressions:
               - key: env

@@ -1,25 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tvplatform-admin-authentication-prod
+  name: tvplatform-admin-authentication
   namespace: default
   labels:
-    app: tvplatform-admin-authentication-prod
+    app: tvplatform-admin-authentication
     env: production
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tvplatform-admin-authentication-prod
+      app: tvplatform-admin-authentication
       env: production
   template:
     metadata:
       labels:
-        app: tvplatform-admin-authentication-prod
+        app: tvplatform-admin-authentication
         env: production
     spec:
       containers:
-      - name: tvplatform-admin-authentication-prod
+      - name: tvplatform-admin-authentication
         image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-authentication:52 # will be updated by jenkins PRs
         imagePullPolicy: Always
       imagePullSecrets:
@@ -37,4 +37,4 @@ spec:
       - key: "env"
         operator: "Equal"
         value: "production"
-        effect: "NoSchedule"
+        effect: "NoExecute"

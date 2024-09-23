@@ -1,22 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tvplatform-admin-uploadms
+  name: tvplatform-admin-uploadms-staging
   namespace: default
   labels:
-    app: tvplatform-admin-uploadms
+    app: tvplatform-admin-uploadms-staging
+    env: staging
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tvplatform-admin-uploadms
+      app: tvplatform-admin-uploadms-staging
+      env: staging
   template:
     metadata:
       labels:
-        app: tvplatform-admin-uploadms
+        app: tvplatform-admin-uploadms-staging
+        env: staging
     spec:
       containers:
-      - name: tvplatform-admin-uploadms
+      - name: tvplatform-admin-uploadms-staging
         image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-uploadms:19 # will be updated by jenkins PRs
         imagePullPolicy: Always
       imagePullSecrets:
@@ -24,6 +27,7 @@ spec:
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
             preference:
               matchExpressions:
               - key: env

@@ -1,29 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tvplatform-admin-security
+  name: tvplatform-admin-security-staging
   namespace: default
   labels:
-    app: tvplatform-admin-security
+    app: tvplatform-admin-security-staging
+    env: staging
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tvplatform-admin-security
+      app: tvplatform-admin-security-staging
+      env: staging
   template:
     metadata:
       labels:
-        app: tvplatform-admin-security
+        app: tvplatform-admin-security-staging
+        env: staging
     spec:
       containers:
-      - name: tvplatform-admin-security
-        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-security:1 # will be updated by jenkins PRs
+      - name: tvplatform-admin-security-staging
+        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-security:3 # will be updated by jenkins PRs
         imagePullPolicy: Always
       imagePullSecrets:
       - name: obs-tvplatform-backend
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
             preference:
               matchExpressions:
               - key: env

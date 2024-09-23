@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tvplatform-user-frontend-home-prod
+  name: tvplatform-user-frontend-home
   namespace: default
   labels:
-    app: tvplatform-user-frontend-home-prod
+    app: tvplatform-user-frontend-home
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tvplatform-user-frontend-home-prod
+      app: tvplatform-user-frontend-home
   template:
     metadata:
       labels:
-        app: tvplatform-user-frontend-home-prod
+        app: tvplatform-user-frontend-home
     spec:
       containers:
-      - name: tvplatform-user-frontend-home-prod
+      - name: tvplatform-user-frontend-home
         image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-user-frontend-home:7 # will be updated by jenkins PRs
         imagePullPolicy: Always
       imagePullSecrets:
@@ -34,4 +34,4 @@ spec:
       - key: "env"
         operator: "Equal"
         value: "production"
-        effect: "NoSchedule"
+        effect: "NoExecute"
