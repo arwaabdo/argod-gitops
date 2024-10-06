@@ -1,41 +1,37 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tvplatform-user-identity-staging
+  name: tvplatform-user-identity
   namespace: default
   labels:
-    app: tvplatform-user-identity-staging
-    env: staging
+    app: tvplatform-user-identity
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tvplatform-user-identity-staging
-      env: staging
+      app: tvplatform-user-identity
   template:
     metadata:
       labels:
-        app: tvplatform-user-identity-staging
-        env: staging
+        app: tvplatform-user-identity
     spec:
       containers:
-      - name: tvplatform-user-identity-staging
+      - name: tvplatform-user-identity
         image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-user-identity:2 # will be updated by jenkins PRs
         imagePullPolicy: Always
       imagePullSecrets:
       - name: obs-tvplatform-backend
       affinity:
         nodeAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 1
-            preference:
-              matchExpressions:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
               - key: env
                 operator: In
                 values:
-                - staging
+                - dev
       tolerations:
       - key: "env"
         operator: "Equal"
-        value: "staging"
-        effect: "PreferNoSchedule"
+        value: "dev"
+        effect: "NoExecute"

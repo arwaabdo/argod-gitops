@@ -1,41 +1,37 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tvplatform-admin-frontend-staging
+  name: tvplatform-admin-frontend
   namespace: default
   labels:
-    app: tvplatform-admin-frontend-staging
-    env: staging
+    app: tvplatform-admin-frontend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tvplatform-admin-frontend-staging
-      env: staging
+      app: tvplatform-admin-frontend
   template:
     metadata:
       labels:
-        app: tvplatform-admin-frontend-staging
-        env: staging
+        app: tvplatform-admin-frontend
     spec:
       containers:
-      - name: tvplatform-admin-frontend-staging
+      - name: tvplatform-admin-frontend
         image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-frontend:12 # will be updated by jenkins PRs
         imagePullPolicy: Always
       imagePullSecrets:
       - name: obs-tvplatform-backend
       affinity:
         nodeAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 1
-            preference:
-              matchExpressions:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
               - key: env
                 operator: In
                 values:
-                - staging
+                - dev
       tolerations:
       - key: "env"
         operator: "Equal"
-        value: "staging"
-        effect: "PreferNoSchedule"
+        value: "dev"
+        effect: "NoExecute"
