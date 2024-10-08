@@ -1,7 +1,7 @@
 config:
   secret:
     argocdServerAdminPassword: admin123
-
+server.insecure: true
 server:
   ingress:
     enabled: true
