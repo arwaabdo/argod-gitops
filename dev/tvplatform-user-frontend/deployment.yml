@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tvplatform-user-frontend-dev
-  namespace: default
+  namespace: users
   labels:
     app: tvplatform-user-frontend-dev
     env: dev

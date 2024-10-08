@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tvplatform-user-frontend
-  namespace: default
+  namespace: users
   labels:
     app: tvplatform-user-frontend
 spec:
@@ -29,9 +29,9 @@ spec:
               - key: env
                 operator: In
                 values:
-                - dev
+                - staging
       tolerations:
       - key: "env"
         operator: "Equal"
-        value: "dev"
+        value: "staging"
         effect: "NoExecute"

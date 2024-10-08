@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: tvplatform-admin-gateway
-        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-gateway:47-dev # will be updated by jenkins PRs
+        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-gateway:47-staging # will be updated by jenkins PRs
         imagePullPolicy: Always
       imagePullSecrets:
       - name: obs-tvplatform-backend
@@ -29,9 +29,9 @@ spec:
               - key: env
                 operator: In
                 values:
-                - dev
+                - staging
       tolerations:
       - key: "env"
         operator: "Equal"
-        value: "dev"
+        value: "staging"
         effect: "NoExecute"

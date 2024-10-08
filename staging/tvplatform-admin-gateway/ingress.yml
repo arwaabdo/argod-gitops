@@ -1,12 +1,12 @@
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: oro-ca
+  name: letsencrypt-bk
 spec:
   acme:
     email: chris.aldworth@oceanbluesoftware.co.uk
     privateKeySecretRef:
-      name: oro-ca
+      name: letsencrypt-bk
     server: https://acme-v02.api.letsencrypt.org/directory
     solvers:
       - http01:
@@ -16,18 +16,18 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  labels:
-    argocd.argoproj.io/instance: tvplatform-user-frontend-home
-  name: oro-ca
+  # labels:
+  #   argocd.argoproj.io/instance: tvplatform-admin-frontend
+  name: letsencrypt-bk
 spec:
   dnsNames:
-    - www.ooro.co.uk
-    - ooro.co.uk
+    - www.api.ooro.co.uk
+    - api.ooro.co.uk
   issuerRef:
     group: cert-manager.io
     kind: ClusterIssuer
-    name: oro-ca
-  secretName: oro-ca
+    name: letsencrypt-bk
+  secretName: letsencrypt-bk
   usages:
     - digital signature
     - key encipherment
@@ -36,34 +36,34 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    cert-manager.io/cluster-issuer: oro-ca
-  name: tvplatform-user-frontend-home
-  namespace: default
+    cert-manager.io/cluster-issuer: letsencrypt-bk
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+  name: tvplatform-admin-bk
 spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - www.ooro.co.uk
-        - ooro.co.uk
-      secretName: oro-ca
+        - www.api.ooro.co.uk
+        - api.ooro.co.uk
+      secretName: letsencrypt-bk
   rules:
-    - host: www.ooro.co.uk
+    - host: www.api.ooro.co.uk
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: tvplatform-user-frontend-home
+                name: tvplatform-admin-gateway
                 port:
-                  number: 80
-    - host: ooro.co.uk
+                  number: 8000
+    - host: api.ooro.co.uk
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: tvplatform-user-frontend-home
+                name: tvplatform-admin-gateway
                 port:
-                  number: 80
+                  number: 8000
