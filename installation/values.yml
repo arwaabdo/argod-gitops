@@ -1,7 +1,6 @@
 config:
   secret:
     argocdServerAdminPassword: admin123
-
 server:
   ingress:
     enabled: true
@@ -9,3 +8,6 @@ server:
     pathType: Prefix
   service:
     type: NodePort
+server:
+  extraArgs:
+    - --insecure
