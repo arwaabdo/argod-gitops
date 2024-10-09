@@ -29,9 +29,9 @@ spec:
               - key: env
                 operator: In
                 values:
-                - dev
+                - staging
       tolerations:
       - key: "env"
         operator: "Equal"
-        value: "dev"
+        value: "staging"
         effect: "NoExecute"
