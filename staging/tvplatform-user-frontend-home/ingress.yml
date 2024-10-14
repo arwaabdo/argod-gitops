@@ -16,8 +16,6 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  labels:
-    argocd.argoproj.io/instance: tvplatform-user-frontend-home
   name: oro-ca
 spec:
   dnsNames:
@@ -37,6 +35,7 @@ kind: Ingress
 metadata:
   annotations:
     cert-manager.io/cluster-issuer: oro-ca
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
   name: tvplatform-user-frontend-home
   namespace: default
 spec:
