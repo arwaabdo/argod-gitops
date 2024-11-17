@@ -1,26 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tvplatform-admin-gateway-dev
+  name: tvplatform-admin-gateway
   namespace: default
   labels:
-    app: tvplatform-admin-gateway-dev
+    app: tvplatform-admin-gateway
     env: dev
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tvplatform-admin-gateway-dev
+      app: tvplatform-admin-gateway
       env: dev
   template:
     metadata:
       labels:
-        app: tvplatform-admin-gateway-dev
+        app: tvplatform-admin-gateway
         env: dev
     spec:
       containers:
-      - name: tvplatform-admin-gateway-dev
-        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-gateway:23 # will be updated by jenkins PRs
+      - name: tvplatform-admin-gateway
+        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-gateway:96-staging # will be updated by jenkins PRs
         imagePullPolicy: Always
       imagePullSecrets:
       - name: obs-tvplatform-backend

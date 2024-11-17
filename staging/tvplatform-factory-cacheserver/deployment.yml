@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tvplatform-admin-product
+  name: tvplatform-factory-cacheserver
   namespace: default
   labels:
-    app: tvplatform-admin-product
+    app: tvplatform-factory-cacheserver
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tvplatform-admin-product
+      app: tvplatform-factory-cacheserver
   template:
     metadata:
       labels:
-        app: tvplatform-admin-product
+        app: tvplatform-factory-cacheserver
     spec:
       containers:
-      - name: tvplatform-admin-product
-        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-product:39-staging # will be updated by jenkins PRs
+      - name: tvplatform-factory-cacheserver
+        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-factory-cacheserver:12-staging # will be updated by jenkins PRs
         imagePullPolicy: Always
       imagePullSecrets:
       - name: obs-tvplatform-backend

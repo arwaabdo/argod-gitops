@@ -1,26 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tvplatform-user-frontend-dev
+  name: tvplatform-user-frontend
   namespace: users
   labels:
-    app: tvplatform-user-frontend-dev
+    app: tvplatform-user-frontend
     env: dev
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tvplatform-user-frontend-dev
+      app: tvplatform-user-frontend
       env: dev
   template:
     metadata:
       labels:
-        app: tvplatform-user-frontend-dev
+        app: tvplatform-user-frontend
         env: dev
     spec:
       containers:
-      - name: tvplatform-user-frontend-dev
-        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-user-frontend:1 # will be updated by jenkins PRs
+      - name: tvplatform-user-frontend
+        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-user-frontend:31-staging # will be updated by jenkins PRs
         imagePullPolicy: Always
       imagePullSecrets:
       - name: obs-tvplatform-backend

@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: tvplatform-user-userservice-dev
+  name: tvplatform-user-userservice
   namespace: users
 spec:
   type: NodePort
   selector:
-    app: tvplatform-user-userservice-dev
+    app: tvplatform-user-userservice
     env: dev
   ports:
   - name: http
