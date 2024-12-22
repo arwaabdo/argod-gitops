@@ -1,0 +1,55 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: userhome-certificate
+  namespace: default
+spec:
+  dnsNames:
+    - www.staging-ooro.co.uk
+    - staging-ooro.co.uk
+  issuerRef:
+    group: cert-manager.io
+    kind: Issuer
+    name: userhome-certificate
+  secretName: userhome-certificate
+  usages:
+    - digital signature
+    - key encipherment
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/issuer: userhome-certificate
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+  name: tvplatform-user-home
+  namespace: default
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - www.staging-ooro.co.uk
+        - staging-ooro.co.uk
+      secretName: userhome-certificate
+  rules:
+    - host: www.staging-ooro.co.uk
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: tvplatform-user-frontend-home
+                port:
+                  number: 80
+    - host: staging-ooro.co.uk
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: tvplatform-user-frontend-home
+                port:
+                  number: 80

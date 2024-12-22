@@ -1,0 +1,57 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  labels:
+    argocd.argoproj.io/instance: tvplatform-user-frontend-home
+  name: tvplatformuserfrontend-certificate
+  namespace: users
+spec:
+  dnsNames:
+    - www.user.staging-ooro.co.uk
+    - user.staging-ooro.co.uk
+  issuerRef:
+    group: cert-manager.io
+    kind: Issuer
+    name: tvplatformuserfrontend-certificate
+  secretName: tvplatformuserfrontend-certificate
+  usages:
+    - digital signature
+    - key encipherment
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/issuer: tvplatformuserfrontend-certificate
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+  name: tvplatform-user-frontend
+  namespace: users
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - www.user.staging-ooro.co.uk
+        - user.staging-ooro.co.uk
+      secretName: tvplatformuserfrontend-certificate
+  rules:
+    - host: www.user.staging-ooro.co.uk
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: tvplatform-user-frontend
+                port:
+                  number: 80
+    - host: user.staging-ooro.co.uk
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: tvplatform-user-frontend
+                port:
+                  number: 80
