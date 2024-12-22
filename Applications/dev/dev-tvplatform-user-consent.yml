@@ -2,6 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: dev-tvplatform-user-consent
+  namespace: argocd
 spec:
   destination:
     namespace: default
@@ -19,4 +20,3 @@ spec:
     - CreateNamespace=true # Ensures namespace is created if it doesn't exist
     - ApplyOutOfSyncOnly=true # Apply only out-of-sync changes
     - Replace=true # Forces resources to be replaced
----

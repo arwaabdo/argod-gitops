@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: dev-tvplatform-admin-gateway
-
+  namespace: argocd
 spec:
   destination:
     namespace: default
