@@ -1,22 +1,12 @@
-apiVersion: cert-manager.io/v1
-kind: ClusterIssuer
-metadata:
-  name: letsencrypt-userfront
-spec:
-  acme:
-    email: chris.aldworth@oceanbluesoftware.co.uk
-    privateKeySecretRef:
-      name: letsencrypt-userfront
-    server: https://acme-v02.api.letsencrypt.org/directory
-    solvers:
-      - http01:
-          ingress:
-            class: nginx
+
+
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: letsencrypt-userfront
+  labels:
+    argocd.argoproj.io/instance: tvplatform-user-frontend-home
+  name: tvplatformuserfrontend-certificate
   namespace: users
 spec:
   dnsNames:
@@ -24,9 +14,9 @@ spec:
     - user.ooro.co.uk
   issuerRef:
     group: cert-manager.io
-    kind: ClusterIssuer
-    name: letsencrypt-userfront
-  secretName: letsencrypt-userfront
+    kind: Issuer
+    name: tvplatformuserfrontend-certificate
+  secretName: tvplatformuserfrontend-certificate
   usages:
     - digital signature
     - key encipherment
@@ -35,9 +25,9 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-userfront
+    cert-manager.io/issuer: tvplatformuserfrontend-certificate
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-  name: tvplatform-user-front
+  name: tvplatform-user-frontend
   namespace: users
 spec:
   ingressClassName: nginx
@@ -45,7 +35,7 @@ spec:
     - hosts:
         - www.user.ooro.co.uk
         - user.ooro.co.uk
-      secretName: letsencrypt-userfront
+      secretName: tvplatformuserfrontend-certificate
   rules:
     - host: www.user.ooro.co.uk
       http:

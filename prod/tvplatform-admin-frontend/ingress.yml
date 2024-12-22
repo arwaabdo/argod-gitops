@@ -1,33 +1,18 @@
-apiVersion: cert-manager.io/v1
-kind: ClusterIssuer
-metadata:
-  name: oro-ca
-spec:
-  acme:
-    email: chris.aldworth@oceanbluesoftware.co.uk
-    privateKeySecretRef:
-      name: oro-ca
-    server: https://acme-v02.api.letsencrypt.org/directory
-    solvers:
-      - http01:
-          ingress:
-            class: nginx
----
+
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  labels:
-    argocd.argoproj.io/instance: tvplatform-user-frontend-home
-  name: oro-ca
+  name: tvplatform-admin-frontend-certificate
+  namespace: default
 spec:
   dnsNames:
-    - www.ooro.co.uk
-    - ooro.co.uk
+    - www.admin.ooro.co.uk
+    - admin.ooro.co.uk
   issuerRef:
     group: cert-manager.io
-    kind: ClusterIssuer
-    name: oro-ca
-  secretName: oro-ca
+    kind: Issuer
+    name: tvplatform-admin-frontend-certificate
+  secretName: tvplatform-admin-frontend-certificate
   usages:
     - digital signature
     - key encipherment
@@ -36,34 +21,35 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    cert-manager.io/cluster-issuer: oro-ca
-  name: tvplatform-user-frontend-home
+    cert-manager.io/issuer: tvplatform-admin-frontend-certificate
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+  name: tvplatform-admin-frontend
   namespace: default
 spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - www.ooro.co.uk
-        - ooro.co.uk
-      secretName: oro-ca
+        - www.admin.ooro.co.uk
+        - admin.ooro.co.uk
+      secretName: tvplatform-admin-frontend-certificate
   rules:
-    - host: www.ooro.co.uk
+    - host: www.admin.ooro.co.uk
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: tvplatform-user-frontend-home
+                name: tvplatform-admin-frontend
                 port:
                   number: 80
-    - host: ooro.co.uk
+    - host: admin.ooro.co.uk
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: tvplatform-user-frontend-home
+                name: tvplatform-admin-frontend
                 port:
                   number: 80
