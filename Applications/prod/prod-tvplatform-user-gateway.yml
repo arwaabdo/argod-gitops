@@ -1,14 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: staging-tvplatform-user-frontend
+  name: prod-tvplatform-user-gateway
 spec:
   destination:
     namespace: users
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: ./staging/tvplatform-user-frontend
+    path: ./prod/tvplatform-user-gateway
     repoURL: https://github.com/arwaabdo/argod-gitops.git
   syncPolicy:
     automated:
