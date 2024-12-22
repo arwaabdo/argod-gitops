@@ -10,6 +10,7 @@ spec:
   source:
     path: ./staging/tvplatform-user-userservice
     repoURL: https://github.com/arwaabdo/argod-gitops.git
+    targetRevision: feat/staging
   syncPolicy:
     automated:
       # prune: true # Automatically deletes resources that are no longer defined in the Git repo

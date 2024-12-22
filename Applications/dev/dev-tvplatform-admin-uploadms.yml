@@ -11,6 +11,7 @@ spec:
   source:
     path: ./dev/tvplatform-admin-uploadms
     repoURL: https://github.com/arwaabdo/argod-gitops.git
+    targetRevision: feat/dev
   syncPolicy:
     automated:
       # prune: true # Automatically deletes resources that are no longer defined in the Git repo
