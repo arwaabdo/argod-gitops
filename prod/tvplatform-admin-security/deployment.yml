@@ -5,37 +5,33 @@ metadata:
   namespace: default
   labels:
     app: tvplatform-admin-security
-    env: dev
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: tvplatform-admin-security
-      env: dev
   template:
     metadata:
       labels:
         app: tvplatform-admin-security
-        env: dev
     spec:
       containers:
       - name: tvplatform-admin-security
-        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-security:51-dev # will be updated by jenkins PRs
+        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-security:3 # will be updated by jenkins PRs
         imagePullPolicy: Always
       imagePullSecrets:
       - name: obs-tvplatform-backend
       affinity:
         nodeAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 1
-            preference:
-              matchExpressions:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
               - key: env
                 operator: In
                 values:
-                - dev
+                - staging
       tolerations:
       - key: "env"
         operator: "Equal"
-        value: "dev"
-        effect: "PreferNoSchedule"
+        value: "staging"
+        effect: "NoExecute"

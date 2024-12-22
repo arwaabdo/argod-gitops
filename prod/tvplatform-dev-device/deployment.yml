@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tvplatform-dev-device
+  namespace: default
+  labels:
+    app: tvplatform-dev-device
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tvplatform-dev-device
+  template:
+    metadata:
+      labels:
+        app: tvplatform-dev-device
+    spec:
+      containers:
+      - name: tvplatform-dev-device
+        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-dev-device:16-staging # will be updated by jenkins PRs
+        imagePullPolicy: Always
+      imagePullSecrets:
+      - name: obs-tvplatform-backend
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: env
+                operator: In
+                values:
+                - staging
+      tolerations:
+      - key: "env"
+        operator: "Equal"
+        value: "staging"
+        effect: "NoExecute"

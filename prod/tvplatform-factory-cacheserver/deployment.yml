@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tvplatform-factory-cacheserver
+  namespace: default
+  labels:
+    app: tvplatform-factory-cacheserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tvplatform-factory-cacheserver
+  template:
+    metadata:
+      labels:
+        app: tvplatform-factory-cacheserver
+    spec:
+      containers:
+      - name: tvplatform-factory-cacheserver
+        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-factory-cacheserver:12-staging # will be updated by jenkins PRs
+        imagePullPolicy: Always
+      imagePullSecrets:
+      - name: obs-tvplatform-backend
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: env
+                operator: In
+                values:
+                - staging
+      tolerations:
+      - key: "env"
+        operator: "Equal"
+        value: "staging"
+        effect: "NoExecute"

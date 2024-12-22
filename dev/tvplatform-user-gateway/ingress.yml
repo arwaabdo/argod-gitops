@@ -2,16 +2,17 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: factory-ca
+  name: usergw-certificate
+  namespace: users
 spec:
   dnsNames:
-    - www.factory.dev-ooro.co.uk
-    - factory.dev-ooro.co.uk
+    - www.uapi.dev-ooro.co.uk
+    - uapi.dev-ooro.co.uk
   issuerRef:
     group: cert-manager.io
     kind: Issuer
-    name: factory-ca
-  secretName: factory-ca
+    name: usergw-certificate
+  secretName: usergw-certificate
   usages:
     - digital signature
     - key encipherment
@@ -20,35 +21,35 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    cert-manager.io/issuer: factory-ca
+    cert-manager.io/issuer: usergw-certificate
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-  name: tvplatform-factory-cacheserver
-  namespace: default
+  name: tvplatform-user-gateway
+  namespace: users
 spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - www.factory.dev-ooro.co.uk
-        - factory.dev-ooro.co.uk
-      secretName: factory-ca
+        - www.uapi.dev-ooro.co.uk
+        - uapi.dev-ooro.co.uk
+      secretName: usergw-certificate
   rules:
-    - host: factory.dev-ooro.co.uk
+    - host: www.uapi.dev-ooro.co.uk
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: tvplatform-factory-cacheserver
+                name: tvplatform-user-gateway
                 port:
                   number: 8000
-    - host: www.factory.dev-ooro.co.uk
+    - host: uapi.dev-ooro.co.uk
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: tvplatform-factory-cacheserver
+                name: tvplatform-user-gateway
                 port:
                   number: 8000

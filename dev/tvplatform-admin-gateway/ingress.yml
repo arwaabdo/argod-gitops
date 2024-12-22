@@ -1,17 +1,18 @@
-
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: factory-ca
+  # labels:
+  #   argocd.argoproj.io/instance: tvplatform-admin-frontend
+  name: admingw-cert
 spec:
   dnsNames:
-    - www.factory.dev-ooro.co.uk
-    - factory.dev-ooro.co.uk
+    - www.api.dev-ooro.co.uk
+    - api.dev-ooro.co.uk
   issuerRef:
     group: cert-manager.io
     kind: Issuer
-    name: factory-ca
-  secretName: factory-ca
+    name: admingw-cert
+  secretName: admingw-cert
   usages:
     - digital signature
     - key encipherment
@@ -20,35 +21,34 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    cert-manager.io/issuer: factory-ca
+    cert-manager.io/issuer: admingw-cert
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-  name: tvplatform-factory-cacheserver
-  namespace: default
+  name: tvplatform-admin-bk
 spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - www.factory.dev-ooro.co.uk
-        - factory.dev-ooro.co.uk
-      secretName: factory-ca
+        - www.api.dev-ooro.co.uk
+        - api.dev-ooro.co.uk
+      secretName: admingw-cert
   rules:
-    - host: factory.dev-ooro.co.uk
+    - host: www.api.dev-ooro.co.uk
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: tvplatform-factory-cacheserver
+                name: tvplatform-admin-gateway
                 port:
                   number: 8000
-    - host: www.factory.dev-ooro.co.uk
+    - host: api.dev-ooro.co.uk
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: tvplatform-factory-cacheserver
+                name: tvplatform-admin-gateway
                 port:
                   number: 8000

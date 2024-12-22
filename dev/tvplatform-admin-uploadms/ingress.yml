@@ -2,16 +2,17 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: factory-ca
+  name: uploadms-certificate
+  namespace: default
 spec:
   dnsNames:
-    - www.factory.dev-ooro.co.uk
-    - factory.dev-ooro.co.uk
+    - www.uploadms.dev-ooro.co.uk
+    - uploadms.dev-ooro.co.uk
   issuerRef:
     group: cert-manager.io
     kind: Issuer
-    name: factory-ca
-  secretName: factory-ca
+    name: uploadms-certificate
+  secretName: uploadms-certificate
   usages:
     - digital signature
     - key encipherment
@@ -20,35 +21,35 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    cert-manager.io/issuer: factory-ca
+    cert-manager.io/issuer: uploadms-certificate
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-  name: tvplatform-factory-cacheserver
+  name: uploadms
   namespace: default
 spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - www.factory.dev-ooro.co.uk
-        - factory.dev-ooro.co.uk
-      secretName: factory-ca
+        - www.uploadms.dev-ooro.co.uk
+        - uploadms.dev-ooro.co.uk
+      secretName: uploadms-certificate
   rules:
-    - host: factory.dev-ooro.co.uk
+    - host: www.uploadms.dev-ooro.co.uk
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: tvplatform-factory-cacheserver
+                name: tvplatform-admin-uploadms
                 port:
                   number: 8000
-    - host: www.factory.dev-ooro.co.uk
+    - host: uploadms.dev-ooro.co.uk
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: tvplatform-factory-cacheserver
+                name: tvplatform-admin-uploadms
                 port:
                   number: 8000
