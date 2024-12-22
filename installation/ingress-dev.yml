@@ -1,0 +1,71 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-argocd
+  namespace: argocd
+spec:
+  acme:
+    email: chris.aldworth@oceanbluesoftware.co.uk
+    privateKeySecretRef:
+      name: letsencrypt-argocd
+    server: https://acme-v02.api.letsencrypt.org/directory
+    solvers:
+      - http01:
+          ingress:
+            class: nginx
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: letsencrypt-argocd
+  namespace: argocd
+spec:
+  dnsNames:
+    - www.argocd.dev-ooro.co.uk
+    - argocd.dev-ooro.co.uk
+  issuerRef:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: letsencrypt-argocd
+  secretName: letsencrypt-argocd
+  usages:
+    - digital signature
+    - key encipherment
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-argocd
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  name: argo-cd-argocd-server
+  namespace: argocd
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - www.argocd.dev-ooro.co.uk
+        - argocd.dev-ooro.co.uk
+      secretName: letsencrypt-argocd
+  rules:
+    - host: www.argocd.dev-ooro.co.uk
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: argo-cd-argocd-server
+                port:
+                  number: 80
+    - host: argocd.dev-ooro.co.uk
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: argo-cd-argocd-server
+                port:
+                  number: 80
