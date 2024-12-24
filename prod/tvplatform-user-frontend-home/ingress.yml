@@ -1,4 +1,19 @@
-
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: userhome-certificate
+  namespace: default
+spec:
+  acme:
+    email: chris.aldworth@oceanbluesoftware.co.uk
+    privateKeySecretRef:
+      name: userhome-certificate-key
+    server: https://acme-v02.api.letsencrypt.org/directory
+    solvers:
+      - http01:
+          ingress:
+            class: nginx
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -7,8 +22,8 @@ metadata:
   namespace: default
 spec:
   dnsNames:
-    - www.ooro.co.uk
-    - ooro.co.uk
+    - www.dev-ooro.co.uk
+    - dev-ooro.co.uk
   issuerRef:
     group: cert-manager.io
     kind: Issuer
@@ -30,11 +45,11 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - www.ooro.co.uk
-        - ooro.co.uk
+        - www.dev-ooro.co.uk
+        - dev-ooro.co.uk
       secretName: userhome-certificate
   rules:
-    - host: www.ooro.co.uk
+    - host: www.dev-ooro.co.uk
       http:
         paths:
           - path: /
@@ -44,7 +59,7 @@ spec:
                 name: tvplatform-user-frontend-home
                 port:
                   number: 80
-    - host: ooro.co.uk
+    - host: dev-ooro.co.uk
       http:
         paths:
           - path: /

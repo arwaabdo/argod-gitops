@@ -1,12 +1,12 @@
----
+
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: factory-ca
 spec:
   dnsNames:
-    - www.factory.staging-ooro.co.uk
-    - factory.staging-ooro.co.uk
+    - www.factory.dev-ooro.co.uk
+    - factory.dev-ooro.co.uk
   issuerRef:
     group: cert-manager.io
     kind: Issuer
@@ -28,11 +28,11 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - www.factory.staging-ooro.co.uk
-        - factory.staging-ooro.co.uk
+        - www.factory.dev-ooro.co.uk
+        - factory.dev-ooro.co.uk
       secretName: factory-ca
   rules:
-    - host: factory.staging-ooro.co.uk
+    - host: factory.dev-ooro.co.uk
       http:
         paths:
           - path: /
@@ -42,7 +42,7 @@ spec:
                 name: tvplatform-factory-cacheserver
                 port:
                   number: 8000
-    - host: www.factory.staging-ooro.co.uk
+    - host: www.factory.dev-ooro.co.uk
       http:
         paths:
           - path: /

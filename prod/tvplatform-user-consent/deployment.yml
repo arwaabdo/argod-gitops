@@ -5,15 +5,18 @@ metadata:
   namespace: default
   labels:
     app: tvplatform-user-consent
+    env: dev
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: tvplatform-user-consent
+      env: dev
   template:
     metadata:
       labels:
         app: tvplatform-user-consent
+        env: dev
     spec:
       containers:
       - name: tvplatform-user-consent
@@ -21,17 +24,3 @@ spec:
         imagePullPolicy: Always
       imagePullSecrets:
       - name: obs-tvplatform-backend
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: env
-                operator: In
-                values:
-                - staging
-      tolerations:
-      - key: "env"
-        operator: "Equal"
-        value: "staging"
-        effect: "NoExecute"

@@ -5,33 +5,22 @@ metadata:
   namespace: users
   labels:
     app: tvplatform-user-gateway
+    env: dev
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: tvplatform-user-gateway
+      env: dev
   template:
     metadata:
       labels:
         app: tvplatform-user-gateway
+        env: dev
     spec:
       containers:
       - name: tvplatform-user-gateway
-        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-user-gateway:5-staging # will be updated by jenkins PRs
+        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-user-gateway:15-staging # will be updated by jenkins PRs
         imagePullPolicy: Always
       imagePullSecrets:
       - name: obs-tvplatform-backend
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: env
-                operator: In
-                values:
-                - staging
-      tolerations:
-      - key: "env"
-        operator: "Equal"
-        value: "staging"
-        effect: "NoExecute"

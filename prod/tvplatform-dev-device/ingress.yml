@@ -1,17 +1,17 @@
----
+
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: gateway
+  name: dev-gateway
 spec:
   dnsNames:
-    - www.device.ooro.co.uk
-    - device.ooro.co.uk
+    - www.device.dev-ooro.co.uk
+    - device.dev-ooro.co.uk
   issuerRef:
     group: cert-manager.io
     kind: Issuer
-    name: gateway
-  secretName: gateway
+    name: dev-gateway
+  secretName: dev-gateway
   usages:
     - digital signature
     - key encipherment
@@ -20,7 +20,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    cert-manager.io/issuer: gateway
+    cert-manager.io/issuer: dev-gateway
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     # nginx.ingress.kubernetes.io/auth-tls-pass-certificate-to-upstream: "true"
     nginx.ingress.kubernetes.io/auth-tls-secret: default/abdallah
@@ -33,34 +33,34 @@ metadata:
 
     # nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     
-  name: tvplatform-device
+  name: tvplatform-dev-device
 spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - www.device.ooro.co.uk
-        - device.ooro.co.uk
-      secretName: gateway
+        - www.device.dev-ooro.co.uk
+        - device.dev-ooro.co.uk
+      secretName: dev-gateway
       # secretName: tls-secrett
   rules:
-    - host: www.device.ooro.co.uk
+    - host: www.device.dev-ooro.co.uk
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: tvplatform-device
+                name: tvplatform-dev-device
                 port:
                   number: 8000
-    - host: device.ooro.co.uk
+    - host: device.dev-ooro.co.uk
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: tvplatform-device
+                name: tvplatform-dev-device
                 port:
                   number: 8000
 
@@ -69,7 +69,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    cert-manager.io/issuer: gateway
+    cert-manager.io/issuer: dev-gateway
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     # nginx.ingress.kubernetes.io/auth-tls-pass-certificate-to-upstream: "true"
     nginx.ingress.kubernetes.io/auth-tls-secret: default/abdallah
@@ -84,32 +84,45 @@ metadata:
     #   }
 
       
-  name: tvplatform-device-other
+  name: tvplatform-dev-device-other
 spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - www.device.ooro.co.uk
-        - device.ooro.co.uk
+        - www.device.dev-ooro.co.uk
+        - device.dev-ooro.co.uk
       secretName: letsencrypt-dev
   rules:
-    - host: www.device.ooro.co.uk
+    - host: www.device.dev-ooro.co.uk
       http:
         paths:
           - path: "/update/v([0-9]+)/([A-Z0-9]+).json"
             pathType: ImplementationSpecific
             backend:
               service:
-                name: tvplatform-device
+                name: tvplatform-dev-device
                 port:
                   number: 8000
-    - host: device.ooro.co.uk
+    - host: device.dev-ooro.co.uk
       http:
         paths:
           - path: "/update/v([0-9]+)/([A-Z0-9]+).json"
             pathType: ImplementationSpecific
             backend:
               service:
-                name: tvplatform-device
+                name: tvplatform-dev-device
                 port:
                   number: 8000
+
+
+# https://device.dev-ooro.co.uk/update/v1/ES3300.JSON
+
+# https://device.dev-ooro.co.uk/ELARABY/ES3300/METADATA/v2/Published/ES3300.json
+    
+    
+    # nginx.ingress.kubernetes.io/rewrite-target: /ELARABY/$1/METADATA/v1/Published/$1.json
+    # nginx.ingress.kubernetes.io/configuration-snippet: |
+    #   if ($request_uri ~* ^/update/([A-Z0-9]+)\.json$) {
+    #       set $device_id $1;
+    #       return 302 /ELARABY/$device_id/METADATA/v1/Published/$device_id.json;
+    #   }

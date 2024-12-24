@@ -1,4 +1,4 @@
-
+---
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
@@ -6,8 +6,8 @@ metadata:
   namespace: default
 spec:
   dnsNames:
-    - www.admin.ooro.co.uk
-    - admin.ooro.co.uk
+    - www.admin.dev-ooro.co.uk
+    - admin.dev-ooro.co.uk
   issuerRef:
     group: cert-manager.io
     kind: Issuer
@@ -29,11 +29,11 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - www.admin.ooro.co.uk
-        - admin.ooro.co.uk
+        - www.admin.dev-ooro.co.uk
+        - admin.dev-ooro.co.uk
       secretName: tvplatform-admin-frontend-certificate
   rules:
-    - host: www.admin.ooro.co.uk
+    - host: www.admin.dev-ooro.co.uk
       http:
         paths:
           - path: /
@@ -43,7 +43,7 @@ spec:
                 name: tvplatform-admin-frontend
                 port:
                   number: 80
-    - host: admin.ooro.co.uk
+    - host: admin.dev-ooro.co.uk
       http:
         paths:
           - path: /

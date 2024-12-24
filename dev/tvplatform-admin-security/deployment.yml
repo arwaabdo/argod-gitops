@@ -18,24 +18,11 @@ spec:
         app: tvplatform-admin-security
         env: dev
     spec:
+      serviceAccountName: update-secret-and-ingress
       containers:
       - name: tvplatform-admin-security
         image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-security:51-dev # will be updated by jenkins PRs
         imagePullPolicy: Always
       imagePullSecrets:
       - name: obs-tvplatform-backend
-      affinity:
-        nodeAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 1
-            preference:
-              matchExpressions:
-              - key: env
-                operator: In
-                values:
-                - dev
-      tolerations:
-      - key: "env"
-        operator: "Equal"
-        value: "dev"
-        effect: "PreferNoSchedule"
+ 

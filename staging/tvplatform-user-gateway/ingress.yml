@@ -1,4 +1,4 @@
----
+
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
@@ -6,8 +6,8 @@ metadata:
   namespace: users
 spec:
   dnsNames:
-    - www.uapi.staging-ooro.co.uk
-    - uapi.staging-ooro.co.uk
+    - www.uapi.dev-ooro.co.uk
+    - uapi.dev-ooro.co.uk
   issuerRef:
     group: cert-manager.io
     kind: Issuer
@@ -29,11 +29,11 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - www.uapi.staging-ooro.co.uk
-        - uapi.staging-ooro.co.uk
+        - www.uapi.dev-ooro.co.uk
+        - uapi.dev-ooro.co.uk
       secretName: usergw-certificate
   rules:
-    - host: www.uapi.staging-ooro.co.uk
+    - host: www.uapi.dev-ooro.co.uk
       http:
         paths:
           - path: /
@@ -43,7 +43,7 @@ spec:
                 name: tvplatform-user-gateway
                 port:
                   number: 8000
-    - host: uapi.staging-ooro.co.uk
+    - host: uapi.dev-ooro.co.uk
       http:
         paths:
           - path: /

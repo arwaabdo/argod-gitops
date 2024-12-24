@@ -2,16 +2,17 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: adminfront-cert
+  name: tvplatform-admin-frontend-certificate
+  namespace: default
 spec:
   dnsNames:
-    - www.admin.staging-ooro.co.uk
-    - admin.staging-ooro.co.uk
+    - www.admin.dev-ooro.co.uk
+    - admin.dev-ooro.co.uk
   issuerRef:
     group: cert-manager.io
     kind: Issuer
-    name: adminfront-cert
-  secretName: adminfront-cert
+    name: tvplatform-admin-frontend-certificate
+  secretName: tvplatform-admin-frontend-certificate
   usages:
     - digital signature
     - key encipherment
@@ -20,18 +21,19 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    cert-manager.io/issuer: adminfront-cert
+    cert-manager.io/issuer: tvplatform-admin-frontend-certificate
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
   name: tvplatform-admin-frontend
+  namespace: default
 spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - www.admin.staging-ooro.co.uk
-        - admin.staging-ooro.co.uk
-      secretName: adminfront-cert
+        - www.admin.dev-ooro.co.uk
+        - admin.dev-ooro.co.uk
+      secretName: tvplatform-admin-frontend-certificate
   rules:
-    - host: www.admin.staging-ooro.co.uk
+    - host: www.admin.dev-ooro.co.uk
       http:
         paths:
           - path: /
@@ -41,7 +43,7 @@ spec:
                 name: tvplatform-admin-frontend
                 port:
                   number: 80
-    - host: admin.staging-ooro.co.uk
+    - host: admin.dev-ooro.co.uk
       http:
         paths:
           - path: /

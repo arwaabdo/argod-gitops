@@ -1,18 +1,18 @@
-
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: usergw-certificate
-  namespace: users
+  annotations:
+  name: uploadms-certificate
+  namespace: default
 spec:
   dnsNames:
-    - www.uapi.dev-ooro.co.uk
-    - uapi.dev-ooro.co.uk
+    - www.uploadms.dev-ooro.co.uk
+    - uploadms.dev-ooro.co.uk
   issuerRef:
     group: cert-manager.io
     kind: Issuer
-    name: usergw-certificate
-  secretName: usergw-certificate
+    name: uploadms-certificate
+  secretName: uploadms-certificate
   usages:
     - digital signature
     - key encipherment
@@ -20,36 +20,36 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
+  name: uploadms
+  namespace: default
   annotations:
-    cert-manager.io/issuer: usergw-certificate
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-  name: tvplatform-user-gateway
-  namespace: users
+    cert-manager.io/issuer: uploadms-certificate
+    nginx.ingress.kubernetes.io/force-ssl-redirect: 'true' 
 spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - www.uapi.dev-ooro.co.uk
-        - uapi.dev-ooro.co.uk
-      secretName: usergw-certificate
+        - www.uploadms.dev-ooro.co.uk
+        - uploadms.dev-ooro.co.uk
+      secretName: uploadms-certificate
   rules:
-    - host: www.uapi.dev-ooro.co.uk
+    - host: www.uploadms.dev-ooro.co.uk
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: tvplatform-user-gateway
+                name: tvplatform-admin-uploadms
                 port:
                   number: 8000
-    - host: uapi.dev-ooro.co.uk
+    - host: uploadms.dev-ooro.co.uk
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: tvplatform-user-gateway
+                name: tvplatform-admin-uploadms
                 port:
                   number: 8000
