@@ -1,22 +1,4 @@
 ---
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: tvplatform-admin-frontend-certificate
-  namespace: default
-spec:
-  dnsNames:
-    - www.admin.dev-ooro.co.uk
-    - admin.dev-ooro.co.uk
-  issuerRef:
-    group: cert-manager.io
-    kind: Issuer
-    name: tvplatform-admin-frontend-certificate
-  secretName: tvplatform-admin-frontend-certificate
-  usages:
-    - digital signature
-    - key encipherment
----
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:

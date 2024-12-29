@@ -1,22 +1,5 @@
 
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: usergw-certificate
-  namespace: users
-spec:
-  dnsNames:
-    - www.uapi.dev-ooro.co.uk
-    - uapi.dev-ooro.co.uk
-  issuerRef:
-    group: cert-manager.io
-    kind: Issuer
-    name: usergw-certificate
-  secretName: usergw-certificate
-  usages:
-    - digital signature
-    - key encipherment
----
+
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
