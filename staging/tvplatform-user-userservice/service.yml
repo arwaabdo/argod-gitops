@@ -7,7 +7,7 @@ spec:
   type: NodePort
   selector:
     app: tvplatform-user-userservice
-    env: dev
+    env: staging
   ports:
   - name: http
     port: 8000 # svc port

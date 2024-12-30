@@ -5,18 +5,18 @@ metadata:
   namespace: default
   labels:
     app: tvplatform-user-consent
-    env: dev
+    env: staging
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: tvplatform-user-consent
-      env: dev
+      env: staging
   template:
     metadata:
       labels:
         app: tvplatform-user-consent
-        env: dev
+        env: staging
     spec:
       containers:
       - name: tvplatform-user-consent

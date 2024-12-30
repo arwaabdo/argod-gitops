@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: tvplatform-user-gateway
-        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-user-gateway:15-staging # will be updated by jenkins PRs
+        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-user-gateway:7-dev # will be updated by jenkins PRs
         imagePullPolicy: Always
       imagePullSecrets:
       - name: obs-tvplatform-backend
