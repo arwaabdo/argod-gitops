@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-tvplatform-dev-device
+  namespace: argocd
+spec:
+  destination:
+    namespace: users
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: ./dev/tvplatform-dev-device
+    repoURL: https://github.com/arwaabdo/argod-gitops.git
+    targetRevision: feat/dev
+  syncPolicy:
+    automated:
+      # prune: true # Automatically deletes resources that are no longer defined in the Git repo
+      selfHeal: true # Automatically syncs when a resource is out of sync
+    syncOptions:
+    - CreateNamespace=true # Ensures namespace is created if it doesn't exist
+    - ApplyOutOfSyncOnly=true # Apply only out-of-sync changes
+    - Replace=true # Forces resources to be replaced
