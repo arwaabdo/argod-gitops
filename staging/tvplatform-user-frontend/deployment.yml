@@ -5,18 +5,18 @@ metadata:
   namespace: users
   labels:
     app: tvplatform-user-frontend
-    env: dev
+    env: staging
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: tvplatform-user-frontend
-      env: dev
+      env: staging
   template:
     metadata:
       labels:
         app: tvplatform-user-frontend
-        env: dev
+        env: staging
     spec:
       containers:
       - name: tvplatform-user-frontend

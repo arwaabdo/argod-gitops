@@ -5,18 +5,18 @@ metadata:
   namespace: default
   labels:
     app: tvplatform-admin-authentication
-    env: dev
+    env: prod
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: tvplatform-admin-authentication
-      env: dev
+      env: prod
   template:
     metadata:
       labels:
         app: tvplatform-admin-authentication
-        env: dev
+        env: prod
     spec:
       containers:
       - name: tvplatform-admin-authentication
