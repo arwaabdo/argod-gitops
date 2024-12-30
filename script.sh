@@ -9,7 +9,11 @@ for dir in */; do
   # Run the kubectl delete and apply commands
   echo "Running commands in $dir"
   # kubectl delete -f deployment.yml
-  kubectl apply -f .
+  # kubectl apply -f .
+  git checkout staging
+  git checkout staging
+  git pull origin staging  # Ensure the staging branch is up-to-date
+
   
   # Go back to the original directory
   cd ..
