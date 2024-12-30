@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: tvplatform-admin-product
-        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-product:39-staging # will be updated by jenkins PRs
+        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-product:2-prod # will be updated by jenkins PRs
         imagePullPolicy: Always
       imagePullSecrets:
       - name: obs-tvplatform-backend
