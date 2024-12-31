@@ -22,5 +22,8 @@ spec:
       - name: tvplatform-generalservices-notifications
         image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-generalservices-notifications:11-staging # will be updated by jenkins PRs
         imagePullPolicy: Always
+        envFrom:
+        - secretRef:
+            name: tvplatform-admin-security-dev
       imagePullSecrets:
       - name: obs-tvplatform-backend

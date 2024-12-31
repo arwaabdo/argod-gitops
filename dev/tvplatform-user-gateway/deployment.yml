@@ -22,5 +22,8 @@ spec:
       - name: tvplatform-user-gateway
         image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-user-gateway:7-dev # will be updated by jenkins PRs
         imagePullPolicy: Always
+        envFrom:
+        - secretRef:
+            name: tvplatform-user-gateway-dev
       imagePullSecrets:
       - name: obs-tvplatform-backend
