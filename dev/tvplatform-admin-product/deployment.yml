@@ -22,8 +22,8 @@ spec:
       - name: tvplatform-admin-product
         image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-product:27-dev # will be updated by jenkins PRs
         imagePullPolicy: Always
-        envFrom:
-        - secretRef:
-            name: tvplatform-admin-authentication-dev
+        # envFrom:
+        # - secretRef:
+        #     name: tvplatform-admin-authentication-dev
       imagePullSecrets:
       - name: obs-tvplatform-backend

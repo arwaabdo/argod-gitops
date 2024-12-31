@@ -22,8 +22,8 @@ spec:
       - name: tvplatform-admin-uploadms
         image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-uploadms:24-dev # will be updated by jenkins PRs
         imagePullPolicy: Always
-        envFrom:
-        - secretRef:
-            name: tvplatform-admin-uploadms-dev
+        # envFrom:
+        # - secretRef:
+        #     name: tvplatform-admin-uploadms-dev
       imagePullSecrets:
       - name: obs-tvplatform-backend

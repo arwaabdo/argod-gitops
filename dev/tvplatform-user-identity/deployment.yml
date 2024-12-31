@@ -23,7 +23,7 @@ spec:
         image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-user-identity:9-dev # will be updated by jenkins PRs
         imagePullPolicy: Always
         envFrom:
-        - secretRef:
-            name: tvplatform-admin-authentication-dev
+        # - secretRef:
+        #     name: tvplatform-admin-authentication-dev
       imagePullSecrets:
       - name: obs-tvplatform-backend
