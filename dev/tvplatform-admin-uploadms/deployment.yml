@@ -22,20 +22,8 @@ spec:
       - name: tvplatform-admin-uploadms
         image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-uploadms:24-dev # will be updated by jenkins PRs
         imagePullPolicy: Always
+        # envFrom:
+        # - secretRef:
+        #     name: tvplatform-admin-uploadms-dev
       imagePullSecrets:
       - name: obs-tvplatform-backend
-      affinity:
-        nodeAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 1
-            preference:
-              matchExpressions:
-              - key: env
-                operator: In
-                values:
-                - dev
-      tolerations:
-      - key: "env"
-        operator: "Equal"
-        value: "dev"
-        effect: "PreferNoSchedule"

@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tvplatform-generalservices-notifications
+  namespace: users
+  labels:
+    app: tvplatform-generalservices-notifications
+    env: staging
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tvplatform-generalservices-notifications
+      env: staging
+  template:
+    metadata:
+      labels:
+        app: tvplatform-generalservices-notifications
+        env: staging
+    spec:
+      containers:
+      - name: tvplatform-generalservices-notifications
+        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-generalservices-notifications:11-staging # will be updated by jenkins PRs
+        imagePullPolicy: Always
+      imagePullSecrets:
+      - name: obs-tvplatform-backend

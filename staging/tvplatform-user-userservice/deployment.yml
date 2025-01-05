@@ -5,33 +5,22 @@ metadata:
   namespace: users
   labels:
     app: tvplatform-user-userservice
+    env: staging
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: tvplatform-user-userservice
+      env: staging
   template:
     metadata:
       labels:
         app: tvplatform-user-userservice
+        env: staging
     spec:
       containers:
       - name: tvplatform-user-userservice
-        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-user-userservice:9-dev # will be updated by jenkins PRs
+        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-user-userservice:3-staging # will be updated by jenkins PRs
         imagePullPolicy: Always
       imagePullSecrets:
       - name: obs-tvplatform-backend
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: env
-                operator: In
-                values:
-                - staging
-      tolerations:
-      - key: "env"
-        operator: "Equal"
-        value: "staging"
-        effect: "NoExecute"

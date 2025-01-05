@@ -5,15 +5,18 @@ metadata:
   namespace: default
   labels:
     app: tvplatform-user-frontend-home
+    env: prod
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: tvplatform-user-frontend-home
+      env: prod
   template:
     metadata:
       labels:
         app: tvplatform-user-frontend-home
+        env: prod
     spec:
       containers:
       - name: tvplatform-user-frontend-home
@@ -21,17 +24,3 @@ spec:
         imagePullPolicy: Always
       imagePullSecrets:
       - name: obs-tvplatform-backend
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: env
-                operator: In
-                values:
-                - staging
-      tolerations:
-      - key: "env"
-        operator: "Equal"
-        value: "staging"
-        effect: "NoExecute"

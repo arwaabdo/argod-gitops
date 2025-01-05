@@ -17,7 +17,10 @@ spec:
     spec:
       containers:
       - name: tvplatform-factory-cacheserver
-        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-factory-cacheserver:20-dev # will be updated by jenkins PRs
+        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-factory-cacheserver:27-dev # will be updated by jenkins PRs
         imagePullPolicy: Always
+        envFrom:
+        - secretRef:
+            name: tvplatform-admin-security-dev
       imagePullSecrets:
       - name: obs-tvplatform-backend

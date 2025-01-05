@@ -13,10 +13,18 @@ spec:
     repoURL: https://github.com/arwaabdo/argod-gitops.git
     targetRevision: feat/prod
   syncPolicy:
-    automated:
-      # prune: true # Automatically deletes resources that are no longer defined in the Git repo
-      selfHeal: true # Automatically syncs when a resource is out of sync
     syncOptions:
-    - CreateNamespace=true # Ensures namespace is created if it doesn't exist
-    - ApplyOutOfSyncOnly=true # Apply only out-of-sync changes
-    - Replace=true # Forces resources to be replaced
+    - CreateNamespace=true
+    - ApplyOutOfSyncOnly=true
+    - Replace=true
+  ignoreDifferences:
+  - group: networking.k8s.io
+    kind: Ingress
+    name: tvplatform-user-gateway
+    # jqPathExpressions:
+    # - .spec
+  - group: cert-manager.io
+    kind: Certificate
+    name: tvplatform-user-gateway*
+    jqPathExpressions:
+    - .spec

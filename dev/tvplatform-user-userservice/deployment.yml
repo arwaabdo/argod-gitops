@@ -22,20 +22,8 @@ spec:
       - name: tvplatform-user-userservice
         image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-user-userservice:9-dev # will be updated by jenkins PRs
         imagePullPolicy: Always
+        envFrom:
+        - secretRef:
+            name: tvplatform-user-userservice-dev
       imagePullSecrets:
       - name: obs-tvplatform-backend
-      affinity:
-        nodeAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 1
-            preference:
-              matchExpressions:
-              - key: env
-                operator: In
-                values:
-                - dev
-      tolerations:
-      - key: "env"
-        operator: "Equal"
-        value: "dev"
-        effect: "PreferNoSchedule"

@@ -5,33 +5,22 @@ metadata:
   namespace: default
   labels:
     app: tvplatform-admin-product
+    env: prod
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: tvplatform-admin-product
+      env: prod
   template:
     metadata:
       labels:
         app: tvplatform-admin-product
+        env: prod
     spec:
       containers:
       - name: tvplatform-admin-product
-        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-product:27-dev # will be updated by jenkins PRs
+        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-product:39-staging # will be updated by jenkins PRs
         imagePullPolicy: Always
       imagePullSecrets:
       - name: obs-tvplatform-backend
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: env
-                operator: In
-                values:
-                - staging
-      tolerations:
-      - key: "env"
-        operator: "Equal"
-        value: "staging"
-        effect: "NoExecute"
