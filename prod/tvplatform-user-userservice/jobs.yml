@@ -1,0 +1,32 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: db-migration-job
+  annotations:
+    argocd.argoproj.io/hook: PreSync  # Run this Job before any other resourc
+spec:
+  template:
+    spec:
+      containers:
+      - name: migration
+        image: python:3.10-slim  # Replace with your desired Python version
+        command: ["/bin/sh", "-c"]
+        args:
+          - |
+            pip3 install pip --upgrade &&
+            pip3 install poetry &&
+            poetry install &&
+            poetry run mypy . &&
+            poetry run ruff check &&
+            poetry run alembic upgrade head
+        workingDir: /app  # Set the working directory if needed
+        envFrom:
+        - secretRef:
+            name: tvplatform-user-userservice-prod  # Mount environment variables from the secret
+        volumeMounts:
+        - name: app-volume
+          mountPath: /app
+        restartPolicy: Never
+      volumes:
+      - name: app-volume
+        emptyDir: {}  # Use emptyDir or bind to a PersistentVolumeClaim if needed
