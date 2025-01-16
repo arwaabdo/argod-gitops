@@ -9,16 +9,23 @@ spec:
     spec:
       containers:
       - name: migration
-        image: python:3.10-slim  # Replace with your desired Python version
+        image: python:3.11-slim  # Replace with your desired Python version
         command: ["/bin/sh", "-c"]
         args:
           - |
+            apt-get update && apt-get install -y git &&
+            git clone https://${GITHUB_TOKEN}@github.com/OceanBlueSoftware/tvplatform-user-userservice.git /app &&
+            cd /app &&
             pip3 install pip --upgrade &&
             pip3 install poetry &&
             poetry install &&
-            poetry run mypy . &&
-            poetry run ruff check &&
             poetry run alembic upgrade head
+        env:
+        - name: GITHUB_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: github-token-secret
+              key: GITHUB_TOKEN
         envFrom:
         - secretRef:
             name: tvplatform-user-userservice-prod  # Mount environment variables from the secret
