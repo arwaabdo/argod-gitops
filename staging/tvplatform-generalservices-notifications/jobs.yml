@@ -28,5 +28,5 @@ spec:
               key: GITHUB_TOKEN
         envFrom:
         - secretRef:
-            name: tvplatform-generalservices-notifications-prod  # Mount environment variables from the secret
+            name: tvplatform-generalservices-notifications-staging  # Mount environment variables from the secret
       restartPolicy: Never  # Specify the restart policy

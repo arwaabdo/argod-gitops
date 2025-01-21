@@ -28,5 +28,5 @@ spec:
               key: GITHUB_TOKEN
         envFrom:
         - secretRef:
-            name: tvplatform-user-gateway-prod  # Mount environment variables from the secret
+            name: tvplatform-user-gateway-staging  # Mount environment variables from the secret
       restartPolicy: Never  # Specify the restart policy

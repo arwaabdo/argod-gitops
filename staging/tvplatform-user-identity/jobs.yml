@@ -28,5 +28,5 @@ spec:
               key: GITHUB_TOKEN
         envFrom:
         - secretRef:
-            name: tvplatform-admin-authentication-prod  # Mount environment variables from the secret
+            name: tvplatform-admin-authentication-staging  # Mount environment variables from the secret
       restartPolicy: Never  # Specify the restart policy
