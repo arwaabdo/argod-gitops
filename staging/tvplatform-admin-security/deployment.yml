@@ -22,5 +22,8 @@ spec:
       - name: tvplatform-admin-security
         image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-security:20-staging # will be updated by jenkins PRs
         imagePullPolicy: Always
+        envFrom:
+        - secretRef:
+            name: tvplatform-admin-security-staging
       imagePullSecrets:
       - name: obs-tvplatform-backend
