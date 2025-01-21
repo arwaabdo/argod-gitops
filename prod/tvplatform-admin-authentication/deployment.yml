@@ -24,6 +24,6 @@ spec:
         imagePullPolicy: Always
         envFrom:
         - secretRef:
-            name: tvplatform-admin-authentication-staging
+            name: tvplatform-admin-authentication-prod
       imagePullSecrets:
       - name: obs-tvplatform-backend
