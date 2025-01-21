@@ -24,6 +24,6 @@ spec:
         imagePullPolicy: Always
         envFrom:
         - secretRef:
-            name: tvplatform-admin-security-dev
+            name: tvplatform-generalservices-notifications-dev
       imagePullSecrets:
       - name: obs-tvplatform-backend
