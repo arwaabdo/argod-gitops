@@ -19,5 +19,8 @@ spec:
       - name: tvplatform-factory-cacheserver
         image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-factory-cacheserver:2-staging # will be updated by jenkins PRs
         imagePullPolicy: Always
+        envFrom:
+        - secretRef:
+            name: tvplatform-admin-security-prod
       imagePullSecrets:
       - name: obs-tvplatform-backend

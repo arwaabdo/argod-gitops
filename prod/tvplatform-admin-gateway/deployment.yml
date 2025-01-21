@@ -22,5 +22,8 @@ spec:
       - name: tvplatform-admin-gateway
         image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-gateway:6-staging # will be updated by jenkins PRs
         imagePullPolicy: Always
+        envFrom:
+        - secretRef:
+            name: tvplatform-admin-gateway-prod
       imagePullSecrets:
       - name: obs-tvplatform-backend
