@@ -18,7 +18,7 @@ spec:
             cd /app &&
             git checkout prod &&
             pip3 install -r requirements.txt
-            poetry run alembic upgrade head
+            alembic upgrade head
         env:
         - name: GITHUB_TOKEN
           valueFrom:
