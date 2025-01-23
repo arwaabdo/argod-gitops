@@ -20,10 +20,10 @@ spec:
     spec:
       containers:
       - name: tvplatform-admin-product
-        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-product:2-prod # will be updated by jenkins PRs
+        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-product:3-prod # will be updated by jenkins PRs
         imagePullPolicy: Always
         envFrom:
         - secretRef:
-            name: tvplatform-admin-product-prod
+            name: tvplatform-admin-authentication-prod
       imagePullSecrets:
       - name: obs-tvplatform-backend
