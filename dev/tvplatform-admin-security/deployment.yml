@@ -21,7 +21,7 @@ spec:
       serviceAccountName: update-secret-and-ingress
       containers:
       - name: tvplatform-admin-security
-        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-security:76-dev # will be updated by jenkins PRs
+        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-security:77-dev # will be updated by jenkins PRs
         imagePullPolicy: Always
         envFrom:
         - secretRef:
