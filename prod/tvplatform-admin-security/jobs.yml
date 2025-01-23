@@ -19,6 +19,7 @@ spec:
             git checkout prod &&
             pip3 install poetry &&
             poetry install &&
+            poetry run mypy . &&
             poetry run alembic upgrade head
         env:
         - name: GITHUB_TOKEN
