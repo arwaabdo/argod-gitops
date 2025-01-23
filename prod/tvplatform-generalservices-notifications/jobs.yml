@@ -16,6 +16,7 @@ spec:
             apt-get update && apt-get install -y git &&
             git clone https://${GITHUB_TOKEN}@github.com/OceanBlueSoftware/tvplatform-generalservices-notifications.git /app &&
             cd /app &&
+            git checkout prod &&
             pip3 install pip --upgrade &&
             pip3 install poetry &&
             poetry install &&
