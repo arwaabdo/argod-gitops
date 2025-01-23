@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: tvplatform-admin-security
-        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-security:12-staging # will be updated by jenkins PRs
+        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-security:5-prod # will be updated by jenkins PRs
         imagePullPolicy: Always
         envFrom:
         - secretRef:
