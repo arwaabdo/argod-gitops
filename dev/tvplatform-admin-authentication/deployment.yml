@@ -21,9 +21,9 @@ spec:
       containers:
       - name: tvplatform-admin-authentication
 <<<<<<< HEAD
-        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-authentication:94-dev # will be updated by jenkins PRs
+        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-authentication:95-dev # will be updated by jenkins PRs
 =======
-        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-authentication:94-dev # will be updated by jenkins PRs
+        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-authentication:95-dev # will be updated by jenkins PRs
 >>>>>>> bff7a87a33573f0e6adaf7c8506caf455f59dd33
         imagePullPolicy: Always
         envFrom:
