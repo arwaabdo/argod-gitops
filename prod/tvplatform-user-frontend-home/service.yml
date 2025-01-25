@@ -11,5 +11,5 @@ spec:
   ports:
   - name: http
     port: 80 # svc port
-    targetPort: 3000 # app port
+    targetPort: 80 # app port
     # nodePort: 30002  # Port accessible externally on each node
