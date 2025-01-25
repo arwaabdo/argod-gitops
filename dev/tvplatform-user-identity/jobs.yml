@@ -13,7 +13,7 @@ spec:
         command: ["/bin/sh", "-c"]
         args:
           - |
-            apt-get update && apt-get install -y git &&
+           apt-get update && apt-get install -y git &&
             git clone https://${GITHUB_TOKEN}@github.com/OceanBlueSoftware/tvplatform-user-identity.git /app &&
             cd /app &&
             git checkout prod &&
