@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: tvplatform-user-gateway
-        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-user-gateway:4-prod # will be updated by jenkins PRs
+        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-user-gateway:5-prod # will be updated by jenkins PRs
         imagePullPolicy: Always
         envFrom:
         - secretRef:
