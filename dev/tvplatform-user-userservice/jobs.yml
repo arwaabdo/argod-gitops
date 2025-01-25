@@ -16,9 +16,9 @@ spec:
             apt-get update && apt-get install -y git &&
             git clone https://${GITHUB_TOKEN}@github.com/OceanBlueSoftware/tvplatform-user-userservice.git /app &&
             cd /app &&
-            pip3 install pip --upgrade &&
-            pip3 install poetry &&
-            poetry install &&
+            pip3 install pip --upgrade
+            pip3 install poetry
+            poetry install
             poetry run alembic upgrade head
         env:
         - name: GITHUB_TOKEN

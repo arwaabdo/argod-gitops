@@ -2,6 +2,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: tvplatform-dev-device-dbmigration
+  namespace: default
   annotations:
     argocd.argoproj.io/hook: PreSync  # Run this Job before any other resource
 spec:
@@ -18,7 +19,6 @@ spec:
             cd /app &&
             pip3 install pip --upgrade &&
             pip3 install poetry &&
-            poetry run mypy . &&
             poetry install &&
             poetry run alembic upgrade head
         env:

@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: tvplatform-user-gateway-dbmigration
+  name: tvplatform-admin-security-dbmigration
   annotations:
     argocd.argoproj.io/hook: PreSync  # Run this Job before any other resource
 spec:
@@ -14,11 +14,11 @@ spec:
         args:
           - |
             apt-get update && apt-get install -y git &&
-            git clone https://${GITHUB_TOKEN}@github.com/OceanBlueSoftware/tvplatform-user-gateway.git /app &&
+            git clone https://${GITHUB_TOKEN}@github.com/OceanBlueSoftware/tvplatform-admin-security.git /app &&
             cd /app &&
-            pip3 install pip --upgrade &&
             pip3 install poetry &&
             poetry install &&
+            poetry run mypy . &&
             poetry run alembic upgrade head
         env:
         - name: GITHUB_TOKEN
@@ -28,5 +28,5 @@ spec:
               key: GITHUB_TOKEN
         envFrom:
         - secretRef:
-            name: tvplatform-user-gateway-dev  # Mount environment variables from the secret
+            name: tvplatform-admin-security-dev  # Mount environment variables from the secret
       restartPolicy: Never  # Specify the restart policy
