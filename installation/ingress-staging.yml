@@ -5,7 +5,7 @@ metadata:
   namespace: argocd
 spec:
   acme:
-    email: chris.aldworth@oceanbluesoftware.co.uk
+    email: chris.aldworth@OORO-Platform.co.uk
     privateKeySecretRef:
       name: letsencrypt-argocd
     server: https://acme-v02.api.letsencrypt.org/directory
