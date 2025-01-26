@@ -1,0 +1,31 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: tvplatform-user-identity-dbmigration
+  annotations:
+    argocd.argoproj.io/hook: PreSync  # Run this Job before any other resource
+spec:
+  template:
+    spec:
+      containers:
+      - name: migration
+        image: python:3.11-slim  # Replace with your desired Python version
+        command: ["/bin/sh", "-c"]
+        args:
+          - |
+            apt-get update && apt-get install -y git &&
+            git clone https://${GITHUB_TOKEN}@github.com/OceanBlueSoftware/tvplatform-user-identity.git /app &&
+            cd /app &&
+            git checkout staging &&
+            pip3 install -r requirements.txt
+            alembic upgrade head
+        env:
+        - name: GITHUB_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: github-token-secret
+              key: GITHUB_TOKEN
+        envFrom:
+        - secretRef:
+            name: tvplatform-admin-authentication-staging  # Mount environment variables from the secret
+      restartPolicy: Never  # Specify the restart policy
