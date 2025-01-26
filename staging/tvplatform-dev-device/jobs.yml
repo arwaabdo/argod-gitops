@@ -15,9 +15,9 @@ spec:
         args:
           - |
             apt-get update && apt-get install -y git &&
-            git clone https://${GITHUB_TOKEN}@github.com/OORO-Platform/tvplatform-dev-device.git /app &&
+            git clone https://${GITHUB_TOKEN}@github.com/OceanBlueSoftware/tvplatform-dev-device.git /app &&
             cd /app &&
-            git checkout prod &&
+            git checkout staging &&
             pip3 install pip --upgrade &&
             pip3 install poetry &&
             poetry install &&
