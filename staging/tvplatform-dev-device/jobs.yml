@@ -1,7 +1,8 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: tvplatform-user-identity-dbmigration
+  name: tvplatform-dev-device-dbmigration
+  namespace: default
   annotations:
     argocd.argoproj.io/hook: PreSync  # Run this Job before any other resource
 spec:
@@ -14,11 +15,13 @@ spec:
         args:
           - |
             apt-get update && apt-get install -y git &&
-            git clone https://${GITHUB_TOKEN}@github.com/OceanBlueSoftware/tvplatform-user-identity.git /app &&
+            git clone https://${GITHUB_TOKEN}@github.com/OORO-Platform/tvplatform-dev-device.git /app &&
             cd /app &&
-            git checkout prod &&
-            pip3 install -r requirements.txt
-            alembic upgrade head
+            git checkout staging &&
+            pip3 install pip --upgrade &&
+            pip3 install poetry &&
+            poetry install &&
+            poetry run alembic upgrade head
         env:
         - name: GITHUB_TOKEN
           valueFrom:
@@ -27,5 +30,5 @@ spec:
               key: GITHUB_TOKEN
         envFrom:
         - secretRef:
-            name: tvplatform-admin-authentication-prod  # Mount environment variables from the secret
+            name: tvplatform-dev-device-staging  # Mount environment variables from the secret
       restartPolicy: Never  # Specify the restart policy
