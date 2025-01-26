@@ -17,7 +17,7 @@ spec:
             apt-get update && apt-get install -y git &&
             git clone https://${GITHUB_TOKEN}@github.com/OORO-Platform/tvplatform-dev-device.git /app &&
             cd /app &&
-            git checkout staging &&
+            git checkout prod &&
             pip3 install pip --upgrade &&
             pip3 install poetry &&
             poetry install &&
@@ -30,5 +30,5 @@ spec:
               key: GITHUB_TOKEN
         envFrom:
         - secretRef:
-            name: tvplatform-dev-device-staging  # Mount environment variables from the secret
+            name: tvplatform-dev-device-prod  # Mount environment variables from the secret
       restartPolicy: Never  # Specify the restart policy
