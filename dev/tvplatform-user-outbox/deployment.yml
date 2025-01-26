@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tvplatform-user-outbox
+  namespace: default
+  labels:
+    app: tvplatform-user-outbox
+    env: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tvplatform-user-outbox
+      env: dev
+  template:
+    metadata:
+      labels:
+        app: tvplatform-user-outbox
+        env: dev
+    spec:
+      containers:
+      - name: tvplatform-user-outbox
+        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-user-outbox:1-dev # will be updated by jenkins PRs
+        imagePullPolicy: Always
+        envFrom:
+        - secretRef:
+            name: tvplatform-user-outbox-dev
+      imagePullSecrets:
+      - name: obs-tvplatform-backend
