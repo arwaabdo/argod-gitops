@@ -20,10 +20,7 @@ spec:
     spec:
       containers:
       - name: tvplatform-generalservices-notifications
-        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-generalservices-notifications:1-staging # will be updated by jenkins PRs
+        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-generalservices-notifications:11-staging # will be updated by jenkins PRs
         imagePullPolicy: Always
-        envFrom:
-        - secretRef:
-            name: tvplatform-generalservices-notifications-staging
       imagePullSecrets:
       - name: obs-tvplatform-backend
