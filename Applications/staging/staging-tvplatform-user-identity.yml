@@ -10,7 +10,7 @@ spec:
   project: default
   source:
     path: ./staging/tvplatform-user-identity
-    repoURL: https://github.com/OceanBlueSoftware/tvplatform-devops-gitops.git
+    repoURL: https://github.com/OORO-Platform/tvplatform-devops-gitops.git
     targetRevision: feat/staging
   syncPolicy:
     # automated:
