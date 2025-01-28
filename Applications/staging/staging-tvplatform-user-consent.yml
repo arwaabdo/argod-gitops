@@ -10,7 +10,7 @@ spec:
   project: default
   source:
     path: ./staging/tvplatform-user-consent
-    repoURL: git@github.com:OORO-Platform/tvplatform-devops-gitops.git
+    repoURL: https://github.com/arwaabdo/argod-gitops.git
     targetRevision: feat/staging
   syncPolicy:
     # automated:
