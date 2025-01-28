@@ -10,7 +10,7 @@ spec:
   project: default
   source:
     path: ./staging/tvplatform-admin-product
-    repoURL: https://github.com/OORO-Platform/tvplatform-devops-gitops.git
+    repoURL: git@github.com:OORO-Platform/tvplatform-devops-gitops.git
     targetRevision: feat/staging
   syncPolicy:
     # automated:
