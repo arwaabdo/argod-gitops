@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: tvplatform-dev-device
-        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-dev-device:1-dev # will be updated by jenkins PRs
+        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-dev-device:37-dev # will be updated by jenkins PRs
         imagePullPolicy: Always
         envFrom:
         - secretRef:
