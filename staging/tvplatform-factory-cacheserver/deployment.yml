@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: tvplatform-factory-cacheserver
-        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-factory-cacheserver:13-staging # will be updated by jenkins PRs
+        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-factory-cacheserver:14-staging # will be updated by jenkins PRs
         imagePullPolicy: Always
         envFrom:
         - secretRef:
