@@ -30,5 +30,5 @@ spec:
               key: GITHUB_TOKEN
         envFrom:
         - secretRef:
-            name: tvplatform-dev-device-prod  # Mount environment variables from the secret
+            name: tvplatform-dev-device-staging  # Mount environment variables from the secret
       restartPolicy: Never  # Specify the restart policy
