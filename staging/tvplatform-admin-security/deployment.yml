@@ -22,6 +22,8 @@ spec:
       - name: tvplatform-admin-security
         image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-security:31-staging # will be updated by jenkins PRs
         imagePullPolicy: Always
+      serviceAccountName: update-secret-and-ingress
+      serviceAccount: update-secret-and-ingress
         envFrom:
         - secretRef:
             name: tvplatform-admin-security-staging
