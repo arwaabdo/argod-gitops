@@ -25,5 +25,7 @@ spec:
         envFrom:
         - secretRef:
             name: tvplatform-admin-security-prod
+      serviceAccountName: update-secret-and-ingress
+      serviceAccount: update-secret-and-ingress
       imagePullSecrets:
       - name: obs-tvplatform-backend
