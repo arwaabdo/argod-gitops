@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tvplatform-generalservices-notifications
-  namespace: users
+ 
   labels:
     app: tvplatform-generalservices-notifications
     env: dev
