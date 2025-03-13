@@ -9,7 +9,8 @@ spec:
     app: tvplatform-user-frontend
     env: staging
   ports:
-  - name: http
-    port: 80 # svc port
-    targetPort: 3000 # app port
-    # nodePort: 30002  # Port accessible externally on each node
+      - name: http
+        protocol: TCP
+        port: 80
+        targetPort: 3000
+        nodePort: 30617
