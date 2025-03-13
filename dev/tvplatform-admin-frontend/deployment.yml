@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: tvplatform-admin-frontend
-        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-frontend:14-dev # will be updated by jenkins PRs
+        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-admin-frontend:15-dev # will be updated by jenkins PRs
         imagePullPolicy: Always
         envFrom:
         - secretRef:
