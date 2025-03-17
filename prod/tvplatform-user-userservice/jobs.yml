@@ -5,6 +5,7 @@ metadata:
   annotations:
     argocd.argoproj.io/hook: PreSync  # Run this Job before any other resource
 spec:
+  ttlSecondsAfterFinished: 120
   template:
     spec:
       containers:
