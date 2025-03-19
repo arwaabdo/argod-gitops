@@ -18,7 +18,8 @@ spec:
             git clone https://${GITHUB_TOKEN}@github.com/OORO-Platform/tvplatform-admin-authentication.git /app &&
             cd /app &&
             git checkout main &&
-            pip3 install -r requirements.txt
+            pip3 install -r requirements.txt &&
+            pip3 install alembic &&
             alembic upgrade head
         env:
         - name: GITHUB_TOKEN
