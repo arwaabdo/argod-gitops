@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: tvplatform-user-userservice
-        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-user-userservice:2-dev # will be updated by jenkins PRs
+        image: registry.digitalocean.com/obs-tvplatform-backend/tvplatform-user-userservice:4-dev # will be updated by jenkins PRs
         imagePullPolicy: Always
         envFrom:
         - secretRef:
