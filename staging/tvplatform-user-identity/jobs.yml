@@ -16,7 +16,7 @@ spec:
             apt-get update && apt-get install -y git &&
             git clone https://${GITHUB_TOKEN}@github.com/OORO-Platform/tvplatform-user-identity.git /app &&
             cd /app &&
-            git checkout staging &&
+            git checkout prod &&
             pip3 install -r requirements.txt
             alembic upgrade head
         env:
@@ -27,5 +27,5 @@ spec:
               key: GITHUB_TOKEN
         envFrom:
         - secretRef:
-            name: tvplatform-admin-authentication-staging  # Mount environment variables from the secret
+            name: tvplatform-admin-authentication-prod  # Mount environment variables from the secret
       restartPolicy: Never  # Specify the restart policy
